@@ -11,9 +11,11 @@ public class SpacesNoBlockingAssignment extends AbstractLineDecoration {
 
     @Override
     public String decorateLine(FileFormat format, String line, int lineIndex) {
-        if (format.getSpacesNoBlockingAssignment() == 0) {
-            return line;
-        }
+        // You should also remove spaces if spacesblocking assignment is 0
+        // if (format.getSpacesNoBlockingAssignment() == 0) {
+        //     return line;
+        // }
+        
         String aux = line.replaceAll("[ ]*<=[ ]*", StringHelper.getSpaces(format.getSpacesNoBlockingAssignment()) + "<=" + StringHelper.getSpaces(format.getSpacesNoBlockingAssignment()));
         return aux;
     }

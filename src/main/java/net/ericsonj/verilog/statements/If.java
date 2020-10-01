@@ -9,6 +9,9 @@ import net.ericsonj.verilog.StatementState;
  *
  * @author Ericson Joseph <ericsonjoseph@comtor.net>
  */
+
+// FIXME: Fix "end else begin" indent
+
 public class If extends LineIndentable {
 
     private static final String COMMNET = "[ ]*[//|/*].*";
@@ -257,17 +260,17 @@ public class If extends LineIndentable {
         String ifBase = "[ ]*else";
         return StringHelper.stringMatches(line, ifBase, ifBase + COMMNET);
     }
-    
+
     private boolean matchesElseBegin(String line) {
         String ifBase = "[ ]*else[ ]*begin";
         return StringHelper.stringMatches(line, ifBase, ifBase + COMMNET);
     }
-    
+
     private boolean matchesElseIf(String line) {
         String ifBase = "[ ]*else[ ]*if[ ]*.*[)]";
         return StringHelper.stringMatches(line, ifBase, ifBase + COMMNET);
     }
-    
+
     private boolean matchesElseIfBegin(String line) {
         String ifBase = "[ ]*else[ ]*if[ ]*.*[ ]*begin";
         return StringHelper.stringMatches(line, ifBase, ifBase + COMMNET);

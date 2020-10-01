@@ -12,9 +12,11 @@ public class SpacesBlockingAssignment extends AbstractLineDecoration {
 
     @Override
     public String decorateLine(FileFormat format, String line, int lineIndex) {
-        if (format.getSpacesBlockingAssignment() == 0) {
-            return line;
-        }
+        // You should also remove spaces if spacesblocking assignment is 0
+        // if (format.getSpacesBlockingAssignment() == 0) {
+        //     return line;
+        // }
+
         // use lookbehind and lookahead to match only single =
         if (line.matches(".*(?<![!<>=])=(?!=).*")) {
             String spaces = StringHelper.getSpaces(format.getSpacesBlockingAssignment());
@@ -22,6 +24,7 @@ public class SpacesBlockingAssignment extends AbstractLineDecoration {
             // aux = aux.replaceAll("=[ ]*=", "=="); // FIX in case ==
             return aux;
         }
+        
         return line;
     }
 
