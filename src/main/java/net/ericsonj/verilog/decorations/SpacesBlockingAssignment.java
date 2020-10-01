@@ -6,6 +6,7 @@ import net.ericsonj.verilog.FileFormat;
 /**
  *
  * @author ericson
+ * @author Momostein
  */
 public class SpacesBlockingAssignment extends AbstractLineDecoration {
 
@@ -14,9 +15,11 @@ public class SpacesBlockingAssignment extends AbstractLineDecoration {
         if (format.getSpacesBlockingAssignment() == 0) {
             return line;
         }
-        if (line.matches(".*[^<]=.*")) {
-            String aux = line.replaceAll("[ ]*=[ ]*", StringHelper.getSpaces(format.getSpacesBlockingAssignment()) + "=" + StringHelper.getSpaces(format.getSpacesBlockingAssignment()));   
-            aux = aux.replaceAll("=[ ]*=", "=="); // FIX in case ==
+        // use lookbehind and lookahead to match only single =
+        if (line.matches(".*(?<![!<>=])=(?!=).*")) {
+            String spaces = StringHelper.getSpaces(format.getSpacesBlockingAssignment());
+            String aux = line.replaceAll("\\s*(?<![!<>=])=(?!=)\\s*", spaces + "=" + spaces);   
+            // aux = aux.replaceAll("=[ ]*=", "=="); // FIX in case ==
             return aux;
         }
         return line;
